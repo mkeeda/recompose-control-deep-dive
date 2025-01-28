@@ -15,7 +15,7 @@ class PendingTaskState {
 
 @Composable
 fun pendingTask(task: suspend () -> Unit): PendingTaskState {
-    val state = remember(task) { PendingTaskState() }
+    val state = remember { PendingTaskState() }
     if (state.isRunning) {
         LaunchedEffect(Unit) {
             task()

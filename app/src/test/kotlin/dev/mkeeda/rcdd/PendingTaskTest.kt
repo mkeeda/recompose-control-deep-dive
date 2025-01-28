@@ -40,4 +40,36 @@ class PendingTaskTest {
         taskStarted shouldBe true // task started
         taskFinished shouldBe true // task finished
     }
+
+    @Test
+    fun runTaskSuccessfulTest() = runComposeUiTest {
+        lateinit var pendingTask: PendingTaskState
+        var taskStarted = false
+        var taskFinished = false
+
+        setContent {
+            pendingTask = pendingTask {
+                taskStarted = true
+                delay(3000)
+                taskFinished = true
+            }
+        }
+
+        mainClock.autoAdvance = false
+
+        taskStarted shouldBe false
+        mainClock.advanceTimeBy(3000)
+        taskStarted shouldBe false // task is still pending
+
+        pendingTask.isRunning = true
+        waitForIdle() // await drawing phase??
+        mainClock.advanceTimeByFrame() // ??
+        mainClock.advanceTimeBy(1500) // advance time to half of total task duration (3000ms)
+        taskStarted shouldBe true // task started
+        taskFinished shouldBe false // but not finished
+
+        mainClock.advanceTimeBy(1500) // time of task is over
+        taskStarted shouldBe true // task started
+        taskFinished shouldBe true // task finished
+    }
 }
