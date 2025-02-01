@@ -19,3 +19,9 @@ To run the tests, use the following Gradle command:
 ```
 
 or run the tests from Android Studio by right-clicking on the test class and selecting `Run`.
+
+### Additional Resources
+
+For a detailed explanation of the recomposition mechanism used in this repository, please refer to the following slide presentation (in Japanese):
+
+https://speakerdeck.com/mkeeda/shi-ji-shi-gua-kenocompose
