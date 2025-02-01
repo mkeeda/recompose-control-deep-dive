@@ -62,8 +62,8 @@ class PendingTaskTest {
         taskStarted shouldBe false // task is still pending
 
         pendingTask.isRunning = true
-        waitForIdle() // await drawing phase??
-        mainClock.advanceTimeByFrame() // ??
+        waitForIdle() // wait for all recomposition tasks to finish
+        mainClock.advanceTimeByFrame() // run all coroutine tasks of recomposition
         mainClock.advanceTimeBy(1500) // advance time to half of total task duration (3000ms)
         taskStarted shouldBe true // task started
         taskFinished shouldBe false // but not finished

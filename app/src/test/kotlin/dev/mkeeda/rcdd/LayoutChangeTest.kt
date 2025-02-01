@@ -31,8 +31,8 @@ class LayoutChangeTest {
         onNodeWithText("World").assertExists()
 
         flag = true
-        waitForIdle()
-        mainClock.advanceTimeByFrame()
+        waitForIdle() // wait for all recomposition tasks to finish
+        mainClock.advanceTimeByFrame() // run all coroutine tasks of recomposition
         onNodeWithText("Hello").assertExists()
         onNodeWithText("World").assertDoesNotExist()
     }
